@@ -119,6 +119,7 @@ class ExpenseController extends Controller
 
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'type' => 'required',
@@ -151,12 +152,16 @@ class ExpenseController extends Controller
                         } else {
                             $amount = $participant['amount'];
                         }
-                        $data = [];
-                        $data['expense_id'] = $last_inserted_id;
-                        $data['participants_id'] = $participant['user_id'];
-                        $data['amount'] = $amount;
-                        $data['status'] = 1;
-                        $status = ExpenseDetails::storeData($data);
+
+                        $check_user_exist = User::find($participant['user_id']);
+                        if ($check_user_exist) {
+                            $data = [];
+                            $data['expense_id'] = $last_inserted_id;
+                            $data['participants_id'] = $participant['user_id'];
+                            $data['amount'] = $amount;
+                            $data['status'] = 1;
+                            $status = ExpenseDetails::storeData($data);
+                        }
                     }
                 }
             }
