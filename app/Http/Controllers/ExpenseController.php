@@ -16,20 +16,20 @@ class ExpenseController extends Controller
     public function expense_details(Request $request)
     {
 
-        $users_pending_amount = $this->get_pending_amount($request->user_id);
+        $participants_pending_amount = $this->get_pending_amount($request->user_id);
 
         $details = Expense::with('users')->where('user_id', '=', $request->user_id)->get();
 
-        $user_summary_details = $this->get_user_summary($details);
+        $expense_summary_details = $this->get_expense_summary($details);
 
         $data = [];
-        $data['Summary'] = $user_summary_details;
-        $data['Users_Pending_Amount'] = $users_pending_amount;
+        $data['Expense_Summary'] = $expense_summary_details;
+        $data['Participants_Pending_Amount'] = $participants_pending_amount;
 
         return response()->json($data, 200)->setEncodingOptions(JSON_PRETTY_PRINT);
     }
 
-    public function get_user_summary($details)
+    public function get_expense_summary($details)
     {
         $expense_del = [];
         foreach ($details as $k => $detail) {
