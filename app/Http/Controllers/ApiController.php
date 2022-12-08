@@ -26,7 +26,7 @@ class ApiController extends Controller
         $data['password'] = Hash::make($data['password']);
         $user = User::create($data);
         $response['data'] = $user;
-        $response['token'] = $user->createToken('Myapp');
+        //$response['token'] = $user->createToken('Myapp');
         return response()->json($response, 400);
     }
 

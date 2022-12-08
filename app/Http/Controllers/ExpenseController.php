@@ -161,7 +161,7 @@ class ExpenseController extends Controller
                 }
             }
             $data = [
-                'message' => 'Task successfully added',
+                'message' => 'Expense successfully added',
                 'data' => (object) [],
                 'error' => (object) [],
 
